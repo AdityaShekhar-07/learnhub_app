@@ -19,9 +19,12 @@ function StudentSignin() {
       
       if (userRole === 'student') {
         navigate('/student-dashboard');
+      } else if (userRole === 'instructor') {
+        await signOut(auth);
+        alert('This email address is registered as an instructor. Try a different address.');
       } else {
         await signOut(auth);
-        alert('This account is not registered as a student. Please use instructor login.');
+        alert('Account not found. Please sign up first.');
       }
     } catch (error) {
       alert(error.message);
