@@ -1,8 +1,17 @@
 {
-  "name": "my-react-app",
+  "name": "learnhub",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Modern online learning platform built with React and Firebase",
+  "author": "Your Name",
+  "license": "MIT",
+  "homepage": "https://learnhub-platform.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/learnhub.git"
+  },
+  "keywords": ["react", "firebase", "education", "learning", "courses", "e-learning"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

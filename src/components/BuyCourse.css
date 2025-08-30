@@ -398,6 +398,97 @@
   cursor: not-allowed;
 }
 
+.filter-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e8eaed;
+}
+
+[data-theme="dark"] .filter-section {
+  border-bottom-color: #3c4043;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+}
+
+.filter-section h3 {
+  color: #1a73e8;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .filter-section h3 {
+  color: #8ab4f8;
+}
+
+.filter-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  color: #3c4043;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.filter-btn:hover {
+  background: #f8f9fa;
+  color: #1a73e8;
+}
+
+.filter-btn.active {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border-left: 3px solid #1a73e8;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .filter-btn {
+  color: #bdc1c6;
+}
+
+[data-theme="dark"] .filter-btn:hover {
+  background: #3c4043;
+  color: #8ab4f8;
+}
+
+[data-theme="dark"] .filter-btn.active {
+  background: #1e3a5f;
+  color: #8ab4f8;
+  border-left-color: #8ab4f8;
+}
+
+.clear-filters-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #ea4335;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  background: #d33b2c;
+}
+
+.filter-actions {
+  margin-top: 1rem;
+}
+
 .promo-section {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
@@ -475,10 +566,38 @@
   border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
+.promo-message.success {
+  background: rgba(19, 115, 51, 0.1);
+  color: #137333;
+  border: 1px solid rgba(19, 115, 51, 0.3);
+}
+
 [data-theme="light"] .promo-message {
   background: rgba(220, 53, 69, 0.1);
   color: #dc3545;
   border-color: rgba(220, 53, 69, 0.3);
+}
+
+[data-theme="light"] .promo-message.success {
+  background: rgba(19, 115, 51, 0.1);
+  color: #137333;
+  border-color: rgba(19, 115, 51, 0.3);
+}
+
+.free-price {
+  color: #137333 !important;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+[data-theme="dark"] .promo-message.success {
+  background: rgba(19, 115, 51, 0.2);
+  color: #81c995;
+  border-color: rgba(19, 115, 51, 0.4);
+}
+
+[data-theme="dark"] .free-price {
+  color: #81c995 !important;
 }
 
 .price-row.discount {

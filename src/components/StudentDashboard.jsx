@@ -26,6 +26,8 @@ function StudentDashboard() {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [cart, setCart] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedLevel, setSelectedLevel] = useState('All');
+  const [selectedPriceRange, setSelectedPriceRange] = useState('All');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -206,6 +208,55 @@ function StudentDashboard() {
       setCart(updatedCart);
       localStorage.setItem(`cart_${user.uid}`, JSON.stringify(updatedCart));
     }
+  };
+
+  const getInstructorBio = (course) => {
+    const bios = {
+      'Web Development': {
+        'Sarah Johnson': 'Full-stack developer at Google with 10+ years building scalable web applications. Expert in React, Node.js, and cloud architecture.',
+        'Alex Thompson': 'Senior React developer at Facebook, creator of popular open-source libraries. Specializes in modern frontend architecture and performance optimization.',
+        'Maria Garcia': 'Backend architect at Netflix, expert in microservices and API design. 8+ years building high-performance server applications.',
+        'David Kim': 'JavaScript evangelist and Mozilla contributor. Author of "Modern JavaScript Patterns" with 12+ years in web development.',
+        'Sophie Chen': 'UI/UX developer at Adobe, expert in responsive design and CSS animations. 6+ years creating beautiful web interfaces.'
+      },
+      'Data Science': {
+        'Dr. Michael Chen': 'PhD in Machine Learning from Stanford, Lead Data Scientist at Tesla. Published 50+ research papers in AI and deep learning.',
+        'Dr. Lisa Wang': 'Former Google AI researcher, expert in Python data analysis. 10+ years in data science with Fortune 500 companies.',
+        'Prof. Robert Lee': 'MIT professor and machine learning consultant. Author of "Practical Machine Learning" with 15+ years in academia and industry.',
+        'Anna Rodriguez': 'Data visualization expert at Tableau, specialist in creating compelling data stories. 8+ years in business intelligence.',
+        'Dr. James Miller': 'Statistics PhD from Harvard, consultant for pharmaceutical companies. Expert in statistical modeling and hypothesis testing.'
+      },
+      'Digital Marketing': {
+        'Emma Rodriguez': 'Digital marketing director at Shopify, expert in e-commerce growth strategies. Scaled multiple startups to $10M+ revenue.',
+        'Mark Johnson': 'SEO consultant for Fortune 500 companies, increased organic traffic by 300%+ for 100+ clients. 12+ years in search marketing.',
+        'Jessica Brown': 'Social media strategist for major brands like Nike and Coca-Cola. Expert in viral content creation and community building.',
+        'Tom Wilson': 'Google Ads certified expert, managed $50M+ in ad spend. Specialist in PPC optimization and conversion rate improvement.',
+        'Rachel Green': 'Email marketing automation expert, achieved 40%+ open rates for enterprise clients. 8+ years in marketing technology.'
+      },
+      'Mobile Development': {
+        'Lisa Park': 'Senior mobile developer at Uber, built apps used by millions. Expert in React Native and cross-platform development.',
+        'Kevin Zhang': 'Flutter team member at Google, contributor to Flutter framework. 10+ years in mobile app development.',
+        'Sarah Kim': 'iOS developer at Apple, worked on core iOS features. Expert in Swift and native iOS development patterns.',
+        'Mike Johnson': 'Android lead at Spotify, built music streaming features. Specialist in Kotlin and Android architecture components.',
+        'Amy Chen': 'Mobile UX designer at Instagram, designed interfaces for 1B+ users. Expert in mobile-first design principles.'
+      },
+      'Cloud Computing': {
+        'James Wilson': 'AWS Solutions Architect, designed cloud infrastructure for Netflix and Airbnb. 12+ years in enterprise cloud migration.',
+        'Linda Davis': 'Microsoft Azure MVP, helped 200+ companies migrate to cloud. Expert in hybrid cloud solutions and DevOps.',
+        'Chris Lee': 'Google Cloud architect, built scalable systems for YouTube. Specialist in Kubernetes and container orchestration.',
+        'Alex Rodriguez': 'Docker captain and Kubernetes contributor. DevOps consultant for Fortune 500 companies with 10+ years experience.',
+        'Robert Taylor': 'Site Reliability Engineer at Facebook, expert in infrastructure automation. Built systems handling billions of requests daily.'
+      },
+      'Cybersecurity': {
+        'Robert Kumar': 'Ethical hacker and security consultant, discovered vulnerabilities in major platforms. CISSP certified with 15+ years experience.',
+        'Marcus Johnson': 'Penetration tester for government agencies, expert in advanced persistent threats. Former NSA cybersecurity analyst.',
+        'Diana Smith': 'Network security architect at Cisco, designed security for enterprise networks. Expert in firewall and intrusion detection.',
+        'Dr. Alan White': 'Cryptography researcher at IBM, expert in blockchain and encryption algorithms. PhD in Computer Security from MIT.',
+        'Jennifer Brown': 'Incident response specialist, handled major security breaches for banks. Expert in digital forensics and threat hunting.'
+      }
+    };
+    
+    return bios[course.category]?.[course.instructorName] || `Expert ${course.category} professional with 8+ years of industry experience. Certified instructor with proven track record of training thousands of students worldwide.`;
   };
 
   const handleCheckout = () => {
@@ -463,27 +514,100 @@ function StudentDashboard() {
         );
       default:
         const categories = ['All', 'Web Development', 'Data Science', 'Digital Marketing', 'Mobile Development', 'Cloud Computing', 'Cybersecurity'];
-        const filteredCourses = selectedCategory === 'All' ? courses : courses.filter(course => course.category === selectedCategory);
+        const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+        const priceRanges = ['All', 'Free (₹1)', 'Under ₹300', '₹300-₹500', 'Above ₹500'];
+        
+        const filteredCourses = courses.filter(course => {
+          const categoryMatch = selectedCategory === 'All' || course.category === selectedCategory;
+          const levelMatch = selectedLevel === 'All' || course.level === selectedLevel;
+          let priceMatch = true;
+          
+          if (selectedPriceRange !== 'All') {
+            const price = course.originalPrice;
+            switch(selectedPriceRange) {
+              case 'Free (₹1)':
+                priceMatch = price <= 1;
+                break;
+              case 'Under ₹300':
+                priceMatch = price < 300;
+                break;
+              case '₹300-₹500':
+                priceMatch = price >= 300 && price <= 500;
+                break;
+              case 'Above ₹500':
+                priceMatch = price > 500;
+                break;
+            }
+          }
+          
+          return categoryMatch && levelMatch && priceMatch;
+        });
         
         return (
           <div className="tab-content">
             <div className="browse-layout">
               <div className="category-sidebar">
-                <h3>Categories</h3>
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    className={selectedCategory === category ? 'category-btn active' : 'category-btn'}
-                    onClick={() => setSelectedCategory(category)}
+                <div className="filter-section">
+                  <h3>Categories</h3>
+                  {categories.map(category => (
+                    <button
+                      key={category}
+                      className={selectedCategory === category ? 'filter-btn active' : 'filter-btn'}
+                      onClick={() => setSelectedCategory(category)}
+                    >
+                      {category}
+                      {category !== 'All' && (
+                        <span className="course-count">
+                          ({courses.filter(c => c.category === category).length})
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="filter-section">
+                  <h3>Difficulty Level</h3>
+                  {levels.map(level => (
+                    <button
+                      key={level}
+                      className={selectedLevel === level ? 'filter-btn active' : 'filter-btn'}
+                      onClick={() => setSelectedLevel(level)}
+                    >
+                      {level}
+                      {level !== 'All' && (
+                        <span className="course-count">
+                          ({courses.filter(c => c.level === level).length})
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="filter-section">
+                  <h3>Price Range</h3>
+                  {priceRanges.map(range => (
+                    <button
+                      key={range}
+                      className={selectedPriceRange === range ? 'filter-btn active' : 'filter-btn'}
+                      onClick={() => setSelectedPriceRange(range)}
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="filter-actions">
+                  <button 
+                    className="clear-filters-btn"
+                    onClick={() => {
+                      setSelectedCategory('All');
+                      setSelectedLevel('All');
+                      setSelectedPriceRange('All');
+                    }}
                   >
-                    {category}
-                    {category !== 'All' && (
-                      <span className="course-count">
-                        ({courses.filter(c => c.category === category).length})
-                      </span>
-                    )}
+                    Clear All Filters
                   </button>
-                ))}
+                </div>
               </div>
               <div className="courses-content">
                 <h2>{selectedCategory === 'All' ? 'All Courses' : selectedCategory}</h2>
@@ -497,7 +621,9 @@ function StudentDashboard() {
                       <img src={course.image} alt={course.title} />
                     </div>
                     <div className="course-header">
-                      <div className="course-category">{course.category}</div>
+                      <div className={`course-category ${course.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {course.category}
+                      </div>
                       <div className="course-rating">⭐ {course.rating}</div>
                     </div>
                     <h3 className="course-title">{course.title}</h3>
@@ -548,7 +674,75 @@ function StudentDashboard() {
                         <div className="preview-rating">⭐ {selectedCourse.rating}</div>
                       </div>
                       <h3>{selectedCourse.title}</h3>
-                      <p className="preview-instructor">Instructor: <strong>{selectedCourse.instructorName}</strong></p>
+                      
+                      <div className="instructor-section">
+                        <h4>About the Instructor</h4>
+                        <div className="instructor-info">
+                          <div className="instructor-avatar">👨‍💻</div>
+                          <div className="instructor-details">
+                            <p className="instructor-name">{selectedCourse.instructorName}</p>
+                            <p className="instructor-bio">{getInstructorBio(selectedCourse)}</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="course-description-section">
+                        <h4>Course Description</h4>
+                        <p className="detailed-description">
+                          {selectedCourse.description} This comprehensive course covers everything from fundamentals to advanced concepts. 
+                          You'll work on real-world projects, learn industry best practices, and gain hands-on experience with the latest tools and technologies. 
+                          Perfect for beginners and professionals looking to advance their skills.
+                        </p>
+                      </div>
+                      
+                      <div className="course-contents">
+                        <h4>What's Included</h4>
+                        <div className="content-grid">
+                          <div className="content-item">
+                            <span className="content-icon">🎥</span>
+                            <div className="content-details">
+                              <h5>Video Lectures</h5>
+                              <p>25+ HD video lessons (8 hours total)</p>
+                            </div>
+                          </div>
+                          <div className="content-item">
+                            <span className="content-icon">📚</span>
+                            <div className="content-details">
+                              <h5>Study Materials</h5>
+                              <p>Comprehensive notes for each topic</p>
+                            </div>
+                          </div>
+                          <div className="content-item">
+                            <span className="content-icon">💻</span>
+                            <div className="content-details">
+                              <h5>Hands-on Projects</h5>
+                              <p>5 real-world projects with source code</p>
+                            </div>
+                          </div>
+                          <div className="content-item">
+                            <span className="content-icon">🏆</span>
+                            <div className="content-details">
+                              <h5>Certificate</h5>
+                              <p>Completion certificate upon finishing</p>
+                            </div>
+                          </div>
+                          <div className="content-item">
+                            <span className="content-icon">❓</span>
+                            <div className="content-details">
+                              <h5>Q&A Support</h5>
+                              <p>Direct access to instructor for doubts</p>
+                            </div>
+                          </div>
+                          <div className="content-item">
+                            <span className="content-icon">♾️</span>
+                            <div className="content-details">
+                              <h5>Lifetime Access</h5>
+                              <p>Access course materials forever</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
                       <div className="preview-details">
                         <div className="detail-item">
                           <span className="detail-label">Duration:</span>
@@ -563,10 +757,7 @@ function StudentDashboard() {
                           <span className="detail-value">{selectedCourse.students}</span>
                         </div>
                       </div>
-                      <div className="preview-description">
-                        <h4>Course Description</h4>
-                        <p>{selectedCourse.description}</p>
-                      </div>
+                      
                       <div className="preview-pricing">
                         <span className="preview-original-price">₹{selectedCourse.originalPrice}</span>
                         <span className="preview-current-price">₹{selectedCourse.price}</span>

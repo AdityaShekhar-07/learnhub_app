@@ -78,9 +78,13 @@ function BuyCourse() {
       return;
     }
     
-    // For demo purposes, all promo codes are unavailable
-    setPromoMessage('Promo code is currently unavailable');
-    setDiscount(0);
+    if (promoCode === 'FIRSTFREE') {
+      setDiscount(100);
+      setPromoMessage('🎉 Promo code applied! Course is now FREE!');
+    } else {
+      setPromoMessage('Promo code is currently unavailable');
+      setDiscount(0);
+    }
   };
 
   const generateUPIQR = () => {
@@ -291,7 +295,7 @@ function BuyCourse() {
                   </button>
                 </div>
                 {promoMessage && (
-                  <div className="promo-message">
+                  <div className={`promo-message ${discount > 0 ? 'success' : ''}`}>
                     {promoMessage}
                   </div>
                 )}
@@ -314,7 +318,9 @@ function BuyCourse() {
                 </div>
                 <div className="price-row total">
                   <span>Total:</span>
-                  <span>₹{totalPrice.toFixed(2)}</span>
+                  <span className={totalPrice === 0 ? 'free-price' : ''}>
+                    {totalPrice === 0 ? 'FREE!' : `₹${totalPrice.toFixed(2)}`}
+                  </span>
                 </div>
               </div>
             </div>
@@ -444,7 +450,7 @@ function BuyCourse() {
                 onClick={handlePaymentSubmit}
                 disabled={loading}
               >
-                {loading ? 'Processing...' : `Pay ₹${totalPrice.toFixed(2)}`}
+                {loading ? 'Processing...' : totalPrice === 0 ? 'Get FREE Course!' : `Pay ₹${totalPrice.toFixed(2)}`}
               </button>
             </div>
           </div>
