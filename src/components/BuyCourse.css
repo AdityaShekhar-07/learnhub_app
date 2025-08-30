@@ -1,0 +1,131 @@
+.buy-course {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 2rem;
+  color: white;
+}
+
+.buy-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #00d4ff;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  transform: translateX(-5px);
+}
+
+.course-summary {
+  background: rgba(26, 26, 46, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.course-summary h2 {
+  color: #00d4ff;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.course-info h3 {
+  color: #ff00ff;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.course-info p {
+  color: #b8c6db;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.price-breakdown {
+  background: rgba(26, 26, 46, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.price-breakdown h3 {
+  color: #00d4ff;
+  margin-bottom: 1.5rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b8c6db;
+}
+
+.price-row.total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #00ff88;
+  border-bottom: none;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.payment-section {
+  background: rgba(26, 26, 46, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.payment-section h3 {
+  color: #00d4ff;
+  margin-bottom: 1rem;
+}
+
+.payment-note {
+  color: #b8c6db;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.purchase-btn {
+  padding: 15px 40px;
+  background: linear-gradient(45deg, #00ff88, #00d4ff);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.purchase-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+}
+
+.purchase-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
