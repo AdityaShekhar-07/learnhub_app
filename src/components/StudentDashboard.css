@@ -1,7 +1,7 @@
 .student-dashboard {
   width: 100vw;
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #ffffff;
   color: #202124;
   font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -11,35 +11,21 @@
   color: #e8eaed;
 }
 
-[data-theme="light"] .student-dashboard {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
-  color: #333;
-}
-
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  background: rgba(248, 249, 250, 0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 1rem 2rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
   gap: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  box-shadow: 0 1px 3px rgba(60,64,67,0.3);
 }
 
 [data-theme="dark"] .dashboard-header {
-  background: rgba(30, 30, 30, 0.95);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-[data-theme="light"] .dashboard-header {
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #2d2e30;
+  border-bottom: 1px solid #3c4043;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .dashboard-header h1 {
@@ -113,13 +99,13 @@
 }
 
 .nav-btn:hover {
-  background: rgba(26, 115, 232, 0.08);
+  background: #f1f3f4;
   color: #1a73e8;
 }
 
 .nav-btn.active {
   color: #1a73e8;
-  background: rgba(26, 115, 232, 0.12);
+  background: #e8f0fe;
 }
 
 .nav-btn.active::after {
@@ -135,46 +121,28 @@
 }
 
 [data-theme="dark"] .nav-btn:hover {
-  background: rgba(138, 180, 248, 0.08);
+  background: #3c4043;
   color: #8ab4f8;
 }
 
 [data-theme="dark"] .nav-btn.active {
   color: #8ab4f8;
-  background: rgba(138, 180, 248, 0.12);
+  background: #1e3a5f;
 }
 
 [data-theme="dark"] .nav-btn.active::after {
   background: #8ab4f8;
 }
 
-[data-theme="light"] .nav-btn {
-  color: #6c757d;
-}
-
-[data-theme="light"] .nav-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-  color: #667eea;
-}
-
-[data-theme="light"] .nav-btn.active {
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.15);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-[data-theme="light"] .nav-btn.active::after {
-  background: #667eea;
-}
-
 .dashboard-main h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
-  color: #00d4ff;
+  color: #1a73e8;
+  font-weight: 400;
 }
 
-[data-theme="light"] .dashboard-main h2 {
-  color: #667eea;
+[data-theme="dark"] .dashboard-main h2 {
+  color: #8ab4f8;
 }
 
 .courses-grid {
@@ -193,49 +161,51 @@
 }
 
 .my-course-card, .progress-card, .certificate-card, .profile-card, .settings-card {
-  background: rgba(26, 26, 46, 0.8);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(60,64,67,0.3);
 }
 
-[data-theme="light"] .my-course-card,
-[data-theme="light"] .progress-card,
-[data-theme="light"] .certificate-card,
-[data-theme="light"] .profile-card,
-[data-theme="light"] .settings-card {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+[data-theme="dark"] .my-course-card,
+[data-theme="dark"] .progress-card,
+[data-theme="dark"] .certificate-card,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .settings-card {
+  background: #2d2e30;
+  border: 1px solid #3c4043;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .my-course-card h3, .progress-card h3, .certificate-card h3 {
-  color: #ff00ff;
+  color: #1a73e8;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
-[data-theme="light"] .my-course-card h3,
-[data-theme="light"] .progress-card h3,
-[data-theme="light"] .certificate-card h3 {
-  color: #764ba2;
+[data-theme="dark"] .my-course-card h3,
+[data-theme="dark"] .progress-card h3,
+[data-theme="dark"] .certificate-card h3 {
+  color: #8ab4f8;
 }
 
 .continue-btn, .download-btn {
-  padding: 10px 20px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  padding: 8px 16px;
+  background: #1a73e8;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  transition: all 0.2s ease;
   margin-top: 1rem;
 }
 
 .continue-btn:hover, .download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  background: #1557b0;
+  box-shadow: 0 1px 2px rgba(60,64,67,0.3);
 }
 
 .progress-bar {
@@ -253,7 +223,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(45deg, #00ff88, #00d4ff);
+  background: #34a853;
   transition: width 0.3s ease;
 }
 
@@ -313,7 +283,7 @@
 }
 
 input:checked + .slider {
-  background-color: #00d4ff;
+  background-color: #1a73e8;
 }
 
 input:checked + .slider:before {
@@ -326,7 +296,7 @@ input:checked + .slider:before {
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
-  color: #00d4ff;
+  color: #1a73e8;
 }
 
 .profile-header {
@@ -341,14 +311,14 @@ input:checked + .slider:before {
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #00d4ff;
+  border: 3px solid #1a73e8;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-[data-theme="light"] .profile-photo {
-  border-color: #667eea;
+[data-theme="dark"] .profile-photo {
+  border-color: #8ab4f8;
 }
 
 .profile-photo img {
